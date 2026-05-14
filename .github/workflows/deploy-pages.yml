@@ -8,6 +8,7 @@ on:
       - ".github/workflows/deploy-pages.yml"
       - ".github/templates/**"
       - "Makefile"
+      - "config.toml"
   workflow_dispatch:
 
 permissions:

@@ -4,6 +4,28 @@
 SITE_DIR := _site
 PDF_DIR := $(SITE_DIR)/pdfs
 
+# Course metadata source — prefer config.toml, fall back to the example.
+CFG_FILE := $(shell [ -f config.toml ] && echo config.toml || echo config.toml.example)
+CFG_GET   = $(shell awk -F' *= *' '/^$(1)[[:space:]]*=/{sub(/^[ \t]*"/,"",$$2);sub(/"[ \t]*$$/,"",$$2);print $$2;exit}' $(CFG_FILE))
+
+COURSE_CODE      := $(call CFG_GET,course-code)
+COURSE_NAME      := $(call CFG_GET,course-name)
+INSTITUTION      := $(call CFG_GET,institution)
+TEXTBOOK_AUTHOR  := $(call CFG_GET,textbook-author)
+TEXTBOOK_TITLE   := $(call CFG_GET,textbook-title)
+TEXTBOOK_EDITION := $(call CFG_GET,textbook-edition)
+TEXTBOOK_SHORT_RAW := $(call CFG_GET,textbook-short)
+TEXTBOOK_SHORT   := $(if $(TEXTBOOK_SHORT_RAW),$(TEXTBOOK_SHORT_RAW),$(TEXTBOOK_AUTHOR))
+TEXTBOOK_INFO    := $(TEXTBOOK_AUTHOR), <em>$(TEXTBOOK_TITLE)</em> ($(TEXTBOOK_EDITION))
+
+# Common sed substitutions for HTML site placeholders.
+SUB_HTML = sed \
+	-e 's|{{COURSE_CODE}}|$(COURSE_CODE)|g' \
+	-e 's|{{COURSE_NAME}}|$(COURSE_NAME)|g' \
+	-e 's|{{INSTITUTION}}|$(INSTITUTION)|g' \
+	-e 's|{{TEXTBOOK_SHORT}}|$(TEXTBOOK_SHORT)|g' \
+	-e 's|{{TEXTBOOK_INFO}}|$(TEXTBOOK_INFO)|g'
+
 # Find all *.learning-sheet.typ files (exclude templates/)
 LEARNING_SHEETS := $(shell find . -path ./templates -prune -o -name "*learning-sheet.typ" -print | sort -V)
 
@@ -103,9 +125,10 @@ viewers: pdfs
 		fi; \
 		[ -z "$$title" ] && title="Learning Sheet"; \
 		escaped_title=$$(echo "$$title" | sed 's/\&/\\\\\\&/g'); \
+		$(SUB_HTML) .github/templates/viewer.html | \
 		awk -v week="$$week" -v title="$$escaped_title" -v fname="$$filename" \
 			'{gsub(/\{\{WEEK\}\}/, week); gsub(/\{\{TITLE\}\}/, title); gsub(/\{\{FILENAME\}\}/, fname); print}' \
-			.github/templates/viewer.html > "$(SITE_DIR)/$${filename}.html" 2>/dev/null; \
+			> "$(SITE_DIR)/$${filename}.html" 2>/dev/null; \
 	done
 
 # Copy CSS styles
@@ -113,10 +136,10 @@ styles: $(SITE_DIR)
 	@echo "🎨 Copying styles..."
 	cp .github/templates/styles.css $(SITE_DIR)/styles.css
 
-# Copy setup guide
+# Render setup guide (substitute course placeholders from config.toml)
 setup-guide: $(SITE_DIR) styles
-	@echo "📚 Copying setup guide..."
-	cp .github/templates/setup-guide.html $(SITE_DIR)/setup-guide.html
+	@echo "📚 Rendering setup guide..."
+	@$(SUB_HTML) .github/templates/setup-guide.html > $(SITE_DIR)/setup-guide.html
 
 # Generate index page
 index: viewers setup-guide styles
@@ -143,7 +166,8 @@ index: viewers setup-guide styles
 	done; \
 	pages="$$pages]"; \
 	escaped_pages=$$(echo "$$pages" | sed 's/&/\\\\\\&/g'); \
-	awk -v pages="$$escaped_pages" '{gsub(/\{\{PAGES_JSON\}\}/, pages); print}' .github/templates/index.html 2>/dev/null > $(SITE_DIR)/index.html
+	$(SUB_HTML) .github/templates/index.html | \
+	awk -v pages="$$escaped_pages" '{gsub(/\{\{PAGES_JSON\}\}/, pages); print}' 2>/dev/null > $(SITE_DIR)/index.html
 
 # Serve locally
 serve: build

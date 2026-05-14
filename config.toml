@@ -1,0 +1,25 @@
+# Course metadata. Bootstrap overwrites this file on fork.
+#
+# All Typst templates read these values via the `config.typ` shim
+# (which calls `toml("config.toml")` and re-exports each field).
+# HTML templates substitute them via {{COURSE_CODE}} etc., which the
+# Makefile fills in at build time from this file.
+#
+# This file ships with TDAA-Go demo values so the template repo's own
+# GitHub Pages deployment is meaningful out of the box. After /bootstrap,
+# your fork's config.toml will reflect your actual course.
+
+course-code      = "TDAA-Go"
+course-name      = "Test-Driven, AI-Assisted Course Template"
+textbook-author  = "Liu"
+textbook-title   = "High-Frequency Test-Driven Learning with AI"
+textbook-edition = "1st ed."
+instructor       = "Jin-Guo Liu"
+institution      = "HKUST(GZ)"
+
+# Used by the Zulip release workflow. Empty string disables the workflow.
+zulip-stream     = ""
+
+# Convenience: short reference shown in test/validation footers and on the
+# site hero. Leave empty to default to textbook-author.
+textbook-short   = "Liu, TDAA"

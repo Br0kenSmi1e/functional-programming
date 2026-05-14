@@ -1,6 +1,11 @@
 # CLAUDE.md
 
-Course materials project. Written in Typst, compiled to PDFs, and served as a static website. Course identity (code, name, textbook, instructor, institution) lives in `config.toml`; `config.typ` is a thin shim that loads the TOML and re-exports the fields for templates. Read `config.toml` before generating user-facing content.
+**TDAA-Go** — a forkable Test-Driven, AI-Assisted course-materials harness.
+Written in Typst, compiled to PDFs, and served as a static website. Course
+identity (code, name, textbook, instructor, institution) lives in
+`config.toml`; `config.typ` is a thin shim that loads the TOML and re-exports
+the fields for templates. Read `config.toml` before generating user-facing
+content.
 
 ## Build Commands
 
@@ -18,6 +23,9 @@ typst compile weekN/N.learning-sheet.typ   # Single file
 ```
 config.toml               # Course metadata (course-code, course-name, textbook, instructor, institution)
 config.typ                # Shim that loads config.toml and re-exports fields for Typst templates
+pyproject.toml            # Python dep manifest for bootstrap scripts (uv sync)
+reference/                # Drop syllabus / past slides / past exams here before /bootstrap (binaries gitignored; converted *.md committed)
+scripts/                  # Bootstrap utilities: scan_references, convert_references, extract_metadata
 weekN/                    # Weekly materials (N = 1..num-weeks)
 ├── N.intro.typ           # 10-min lecture introduction
 ├── N.learning-sheet.typ  # AI-assisted learning guide

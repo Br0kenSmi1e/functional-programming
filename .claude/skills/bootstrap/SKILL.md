@@ -1,20 +1,62 @@
 ---
 name: bootstrap
-description: Use when setting up a new course from a forked template repo — writes config.toml, fills HTML/workflow placeholders, ingests textbook PDFs, and creates the weekly schedule
+description: Use when setting up a new course from a forked template repo — ingests existing reference materials (syllabus/slides/notes), writes config.toml, fills HTML/workflow placeholders, ingests textbook PDFs, and creates the weekly schedule
 ---
 
 # Bootstrap Course
 
 Run once after forking the template repo. Produces:
 
-1. `config.toml` (course metadata; the checked-in `config.typ` shim loads it and re-exports the fields for Typst templates)
-2. Substituted placeholders in `.github/templates/*.html` and `.github/workflows/release-materials.yml`
-3. `textbook/*.md` (extracted chapters)
-4. `coursedesign/schedule.typ` (weekly section assignments)
+1. `reference/*.md` (existing course materials converted to markdown, used to pre-fill metadata)
+2. `config.toml` (course metadata; the checked-in `config.typ` shim loads it and re-exports the fields for Typst templates)
+3. Substituted placeholders in `.github/templates/*.html` and `.github/workflows/release-materials.yml`
+4. `textbook/*.md` (extracted chapters)
+5. `coursedesign/schedule.typ` (weekly section assignments)
 
-## Step 1: Gather metadata
+## Step 1: Collect reference materials
 
-Use `AskUserQuestion` to collect (one question per field, "Other" for free text):
+Ask the user (via `AskUserQuestion`) whether they have existing course materials such as:
+- Course proposal or syllabus
+- Past lecture slides (PPT/PPTX)
+- Past lecture notes or handouts (PDF/DOCX)
+- Past exams or assignments
+
+If yes, instruct them to place the files in the `reference/` directory and wait for confirmation. See `reference/README.md` for the list of valuable inputs.
+
+Scan the directory and report what was found:
+
+```bash
+uv sync
+uv run python -m scripts.scan_references reference/
+```
+
+Convert non-markdown files to markdown in place:
+
+```bash
+uv run python -m scripts.convert_references reference/
+```
+
+After conversion, report converted count and any errors. The `.md` files stay in `reference/` alongside the originals (binaries are gitignored, `.md` is checked in).
+
+If the user has no reference materials, skip to Step 2 and ask for every field manually.
+
+## Step 2: Gather metadata
+
+If reference materials exist, extract metadata first:
+
+```bash
+uv run python -m scripts.extract_metadata reference/
+```
+
+This pulls course code, course name, textbook (incl. ISBN), instructor, institution, num-weeks, semester, and weekly topics from the converted markdown — each tagged with its source file and a confidence level (`high`, `medium`, `uncertain`, or `possibly outdated`).
+
+Present the extractions to the user via `AskUserQuestion`, clearly marking:
+- **Extracted fields** — show value + source (e.g. `Course code: PHYS 2071 (from syllabus.md)`)
+- **Missing fields** — ask the user to provide
+- **Possibly-outdated fields** — items flagged from past semesters (old instructor names, last year's dates) need confirmation or update
+- **Conflicting values** — when multiple sources disagree, show all and ask which is correct
+
+If no reference materials are available, fall back to asking each field directly. One question per field, "Other" for free text:
 
 | Field | Example |
 |-------|---------|
@@ -28,7 +70,7 @@ Use `AskUserQuestion` to collect (one question per field, "Other" for free text)
 | Institution | `HKUST(GZ)` |
 | Zulip stream (optional) | `DSAA3071-2026-Spring` (blank disables release workflow) |
 
-## Step 2: Write `config.toml`
+## Step 3: Write `config.toml`
 
 Copy `config.toml.example` to `config.toml` and fill in the values:
 
@@ -48,7 +90,7 @@ Do **not** edit `config.typ` — it's a checked-in shim that just calls
 `toml("config.toml")` and re-exports each field, so existing template imports
 (`#import "../config.typ": course-code, ...`) keep working unchanged.
 
-## Step 3: Substitute placeholders
+## Step 4: Substitute placeholders
 
 Replace these tokens in the listed files:
 
@@ -58,8 +100,9 @@ Replace these tokens in `.github/templates/`:
 |-------|-------------|-------|
 | `{{COURSE_CODE}}` | course code | `.github/templates/*.html` |
 | `{{COURSE_NAME}}` | course name | `.github/templates/*.html` |
+| `{{TEXTBOOK_SHORT}}` | textbook-short (or textbook-author) | `.github/templates/index.html` |
 | `{{TEXTBOOK_INFO}}` | `<author>, <em>Title</em> (<edition>)` | `.github/templates/setup-guide.html` |
-| `{{INSTITUTION}}` | institution | `.github/templates/setup-guide.html` |
+| `{{INSTITUTION}}` | institution | `.github/templates/*.html` |
 
 The `release-materials.yml` workflow reads `zulip-stream` from `config.toml`
 at runtime, so no substitution is needed there. Verify no course-level
@@ -68,11 +111,11 @@ at runtime, so no substitution is needed there. Verify no course-level
 Makefile and should still be present):
 
 ```bash
-grep -rE '\{\{(COURSE_CODE|COURSE_NAME|TEXTBOOK_INFO|INSTITUTION)\}\}' .github/ \
+grep -rE '\{\{(COURSE_CODE|COURSE_NAME|TEXTBOOK_INFO|TEXTBOOK_SHORT|INSTITUTION)\}\}' .github/ \
   && echo "ERROR: unfilled placeholders" || echo "OK"
 ```
 
-## Step 4: Ingest textbook
+## Step 5: Ingest textbook
 
 Ask for the textbook PDF path(s). For each PDF, extract chapters into `textbook/NN.md`. Each file:
 
@@ -101,7 +144,7 @@ Rules:
 
 After extraction, summarize for the user: chapters, definitions, theorems, proofs per chapter. Let them verify before proceeding.
 
-## Step 5: Create schedule
+## Step 6: Create schedule
 
 Read all `textbook/*.md`. Propose a weekly schedule mapping textbook sections to weeks. Use `coursedesign/schedule.example.typ` as a structural reference.
 
@@ -127,7 +170,7 @@ Guidelines:
 
 Present the schedule to the user, let them adjust ordering/grouping/week count, then write to `coursedesign/schedule.typ`.
 
-## Step 6: (optional) Seed `coursedesign/release-schedule.json`
+## Step 7: (optional) Seed `coursedesign/release-schedule.json`
 
 If the user enabled Zulip release, copy `coursedesign/release-schedule.example.json` to `coursedesign/release-schedule.json` and seed the first few entries. Format:
 

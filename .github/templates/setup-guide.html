@@ -3,238 +3,277 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Setup Guide | {{COURSE_CODE}} {{COURSE_NAME}}</title>
+  <title>Setup · {{COURSE_CODE}} {{COURSE_NAME}}</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
     <div class="header-content">
-      <span class="header-title">{{COURSE_CODE}} {{COURSE_NAME}}</span>
+      <a href="index.html" class="header-title" style="text-decoration:none;border:none;color:inherit;">
+        {{COURSE_CODE}} <span class="header-title-mark">/ {{COURSE_NAME}}</span>
+      </a>
       <nav class="header-nav">
-        <a href="index.html" class="nav-link">Weekly Prompts</a>
-        <a href="setup-guide.html" class="nav-link active">Setup Guide</a>
+        <a href="index.html" class="nav-link">Materials</a>
+        <a href="index.html#hands-on" class="nav-link">Hands-on</a>
+        <a href="index.html#faq" class="nav-link">FAQ</a>
+        <a href="setup-guide.html" class="nav-link active">Setup</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <div class="hero">
-      <span class="hero-badge">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
+
+    <section class="hero">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
         Getting Started
-      </span>
-      <h1>Setup Guide</h1>
-      <p class="hero-subtitle">Everything you need for AI-assisted learning in {{COURSE_CODE}}</p>
-    </div>
+      </div>
+      <h1>Setup, <em>once</em>.</h1>
+      <p class="hero-subtitle">
+        Everything you need to study {{COURSE_CODE}} with an AI tutor: which
+        models to pick, how to feed them the textbook, and the prompting
+        habits that pay off across the term.
+      </p>
+    </section>
 
     <nav class="toc">
-      <div class="toc-title">Table of Contents</div>
+      <div class="toc-title">In this guide</div>
       <ol class="toc-list">
-        <li><a href="#materials"><span class="toc-number">01</span> Getting Course Materials</a></li>
-        <li><a href="#deepseek"><span class="toc-number">02</span> Using DeepSeek for Learning</a></li>
-        <li><a href="#cursor"><span class="toc-number">03</span> Cursor IDE Setup (Optional)</a></li>
-        <li><a href="#models"><span class="toc-number">04</span> Choosing the Right Model</a></li>
-        <li><a href="#tips"><span class="toc-number">05</span> Learning Tips</a></li>
+        <li><a href="#materials"><span class="toc-number">01</span> Getting course materials</a></li>
+        <li><a href="#deepseek"><span class="toc-number">02</span> Using DeepSeek</a></li>
+        <li><a href="#cursor"><span class="toc-number">03</span> Cursor IDE (optional)</a></li>
+        <li><a href="#models"><span class="toc-number">04</span> Choosing a model</a></li>
+        <li><a href="#tips"><span class="toc-number">05</span> Habits that pay off</a></li>
       </ol>
     </nav>
 
-    <section id="materials">
-      <h2><span class="emoji">📚</span> Getting Course Materials</h2>
+    <section class="section" id="materials">
+      <header class="section-header">
+        <span class="section-number">§ 01</span>
+        <h2 class="section-title">Course <em>materials</em></h2>
+      </header>
 
-      <p>The textbook PDF chapters will be shared through <strong>Zulip</strong> in our class channel. Download the relevant chapter before each week's study session.</p>
+      <p>
+        Textbook PDF chapters are shared through <strong>Zulip</strong> in our
+        class channel. Download the relevant chapter before each week's study
+        session.
+      </p>
 
-      <div class="callout success">
-        <div class="callout-title">📖 Textbook</div>
-        <p style="margin-bottom: 0;">{{TEXTBOOK_INFO}}</p>
+      <div class="callout">
+        <div class="callout-title">Textbook</div>
+        <p style="margin-bottom:0;">{{TEXTBOOK_INFO}}</p>
       </div>
 
-      <h3>How to Access Materials</h3>
       <ol class="steps">
         <li class="step">
-          <div class="step-title">Join Zulip Class Channel</div>
+          <div class="step-title">Join the <em>Zulip</em> class channel</div>
           <div class="step-content">
-            <p>Check your email or Canvas for the Zulip invitation link. Join the course channel.</p>
+            <p>Check your email or Canvas for the Zulip invitation link, then join the course channel.</p>
           </div>
         </li>
         <li class="step">
-          <div class="step-title">Download Chapter PDFs</div>
+          <div class="step-title">Download chapter PDFs</div>
           <div class="step-content">
-            <p>Find the pinned messages or announcements with textbook chapter PDFs. Download the relevant chapter for your study session.</p>
+            <p>Find the pinned messages or weekly announcement and download the chapter for the upcoming week.</p>
           </div>
         </li>
         <li class="step">
-          <div class="step-title">Access Weekly Learning Sheets</div>
+          <div class="step-title">Open the weekly learning sheet</div>
           <div class="step-content">
-            <p>Visit this website's home page to access the learning sheets for each week's materials.</p>
+            <p>Visit the <a href="index.html">materials page</a> to access this week's sheet, prompts, and validation set.</p>
           </div>
         </li>
       </ol>
     </section>
 
-    <section id="deepseek">
-      <h2><span class="emoji">🤖</span> Using DeepSeek for AI-Assisted Learning</h2>
+    <section class="section" id="deepseek">
+      <header class="section-header">
+        <span class="section-number">§ 02</span>
+        <h2 class="section-title">Studying with <em>DeepSeek</em></h2>
+      </header>
 
-      <p><a href="https://chat.deepseek.com" target="_blank">DeepSeek</a> is a powerful AI assistant that's <strong>free to use</strong> and excellent for studying.</p>
+      <p>
+        <a href="https://chat.deepseek.com" target="_blank">DeepSeek</a> is
+        free, accepts PDF uploads, and is strong at step-by-step reasoning. If
+        you don't already have a preferred model, start here.
+      </p>
 
       <div class="callout">
-        <div class="callout-title">Why DeepSeek?</div>
-        <ul style="margin-bottom: 0;">
-          <li><strong>Free</strong> — No subscription required</li>
-          <li><strong>PDF Upload</strong> — Directly upload textbook chapters</li>
-          <li><strong>Strong Reasoning</strong> — Excellent at step-by-step explanations</li>
-          <li><strong>Long Context</strong> — Can process entire chapters at once</li>
+        <div class="callout-title">Why DeepSeek</div>
+        <ul style="margin-bottom:0;">
+          <li><strong>Free</strong> — no subscription required</li>
+          <li><strong>PDF upload</strong> — feed it the chapter directly</li>
+          <li><strong>Long context</strong> — whole chapters fit in one window</li>
+          <li><strong>Deep Think</strong> — slower, careful reasoning mode</li>
         </ul>
       </div>
 
-      <h3>Getting Started with DeepSeek</h3>
       <ol class="steps">
         <li class="step">
-          <div class="step-title">Create an Account</div>
+          <div class="step-title">Create an account</div>
           <div class="step-content">
-            <p>Go to <a href="https://chat.deepseek.com" target="_blank">chat.deepseek.com</a> and sign up for a free account.</p>
+            <p>Go to <a href="https://chat.deepseek.com" target="_blank">chat.deepseek.com</a> and sign up with email or Google.</p>
           </div>
         </li>
         <li class="step">
-          <div class="step-title">Upload Your Textbook Chapter</div>
+          <div class="step-title">Upload the chapter PDF</div>
           <div class="step-content">
-            <p>Click the <strong>📎 attachment</strong> button in the chat interface. Select the textbook chapter PDF you downloaded from Zulip. Wait for it to upload completely.</p>
+            <p>Use the <strong>📎 attachment</strong> button. Wait for the file to finish processing before you start asking questions.</p>
           </div>
         </li>
         <li class="step">
-          <div class="step-title">Enable Deep Think Mode (Recommended)</div>
+          <div class="step-title">Turn on <em>Deep Think</em></div>
           <div class="step-content">
-            <p>For complex topics, enable <strong>"Deep Think"</strong> mode. This gives more thorough, step-by-step reasoning.</p>
+            <p>For proofs and tricky steps, enable Deep Think mode. The output is slower but the reasoning is much sharper.</p>
           </div>
         </li>
         <li class="step">
-          <div class="step-title">Start Your Study Session</div>
+          <div class="step-title">Run the prompts</div>
           <div class="step-content">
-            <p>Use the prompts from our weekly learning sheets. Copy a prompt, paste it into DeepSeek, and start learning!</p>
+            <p>Copy a <code>#prompt</code> block from the learning sheet, paste it into DeepSeek, and start. New chat per chapter.</p>
           </div>
         </li>
       </ol>
 
-      <h3>Example Prompts to Try</h3>
-      <pre><code>Based on the textbook chapter I uploaded, explain:
-1. The main concept introduced in this chapter
-2. Give me a simple example and walk through it step by step.</code></pre>
+      <h3>Two prompts to keep handy</h3>
+<pre><code>Based on the chapter I uploaded, explain:
+1. The main concept introduced in §N.K
+2. A worked example, step by step
+3. The single most common mistake students make.</code></pre>
 
-      <pre><code>I'm confused about [topic]. Can you:
-1. Explain the intuition in simple terms
-2. Show me a worked example
-3. Give me a practice problem to try</code></pre>
+<pre><code>I'm confused about [topic]. Can you:
+1. Explain the intuition in plain English first
+2. Show me a small example
+3. Then give me a practice problem similar to,
+   but not identical to, the example.</code></pre>
 
-      <div class="callout warning">
-        <div class="callout-title">⚠️ Pro Tip</div>
-        <p style="margin-bottom: 0;">Always start a new chat session when uploading a new chapter to avoid context confusion. DeepSeek works best when it has clear, focused context.</p>
+      <div class="callout">
+        <div class="callout-title">Pro tip</div>
+        <p style="margin-bottom:0;">Always start a new chat when you switch chapters. Mixed-context sessions hallucinate more, especially on definitions.</p>
       </div>
     </section>
 
-    <section id="cursor">
-      <h2><span class="emoji">💻</span> Cursor IDE Setup (Optional)</h2>
+    <section class="section" id="cursor">
+      <header class="section-header">
+        <span class="section-number">§ 03</span>
+        <h2 class="section-title">Cursor IDE <em>(optional)</em></h2>
+      </header>
 
-      <p>For students who prefer a coding environment with integrated AI, <a href="https://www.cursor.com" target="_blank">Cursor</a> is an excellent option.</p>
+      <p>
+        For students who already live in a code editor,
+        <a href="https://www.cursor.com" target="_blank">Cursor</a> integrates
+        AI directly. Useful for proof-heavy work where you'd like to drop
+        Typst or Markdown alongside your notes.
+      </p>
 
-      <h3>Installation</h3>
       <ol class="steps">
         <li class="step">
-          <div class="step-title">Download Cursor</div>
+          <div class="step-title">Install</div>
           <div class="step-content">
-            <p>Get Cursor from <a href="https://www.cursor.com" target="_blank">cursor.com</a>. It's available for Windows, macOS, and Linux.</p>
+            <p>Get Cursor from <a href="https://www.cursor.com" target="_blank">cursor.com</a> — Windows, macOS, and Linux all supported.</p>
           </div>
         </li>
         <li class="step">
-          <div class="step-title">Network Configuration (China)</div>
+          <div class="step-title">Network configuration <em>(China)</em></div>
           <div class="step-content">
-            <p>If you're in mainland China and need to use advanced models:</p>
+            <p>If you're on the mainland and need access to Anthropic / OpenAI models:</p>
             <ul>
-              <li><code>Cursor Settings</code> → Search "HTTP" → Set <code>HTTP Compatibility mode</code> to <code>HTTP 1.1</code></li>
-              <li>Open Settings (Cmd/Ctrl + ,) → Search "proxy" → Configure your proxy settings</li>
+              <li><code>Cursor Settings</code> → search "HTTP" → set <code>HTTP Compatibility mode</code> to <code>HTTP 1.1</code></li>
+              <li>Open Settings (<code>Cmd/Ctrl + ,</code>) → search "proxy" → configure your proxy</li>
             </ul>
           </div>
         </li>
         <li class="step">
-          <div class="step-title">Select Agent Mode</div>
+          <div class="step-title">Switch to Agent mode</div>
           <div class="step-content">
-            <p>Switch to <strong>Agent</strong> mode in the AI pane (bottom left of chat). This enables more powerful multi-step reasoning.</p>
+            <p>In the AI pane (bottom-left of chat), select <strong>Agent</strong>. Multi-step reasoning works much better than the default chat mode.</p>
           </div>
         </li>
       </ol>
     </section>
 
-    <section id="models">
-      <h2><span class="emoji">🎯</span> Choosing the Right Model</h2>
+    <section class="section" id="models">
+      <header class="section-header">
+        <span class="section-number">§ 04</span>
+        <h2 class="section-title">Picking a <em>model</em></h2>
+      </header>
 
-      <p>Different AI models excel at different tasks. Here's a guide for the 2025 landscape:</p>
+      <p>Different models have different strengths. A short field guide for the 2026 landscape:</p>
 
       <div class="model-grid">
         <div class="model-card">
-          <div class="model-name">
-            DeepSeek
-            <span class="model-tag">Free</span>
-          </div>
-          <div class="model-desc">Best free option. Strong reasoning, supports PDF upload. Ideal for most students.</div>
+          <div class="model-name">DeepSeek <span class="model-tag">Free</span></div>
+          <div class="model-desc">Strong default. Free, accepts PDFs, careful reasoning in Deep Think mode.</div>
         </div>
         <div class="model-card">
-          <div class="model-name">Claude 4.5</div>
-          <div class="model-desc">Top-tier explanation and coding. Best for complex topics with step-by-step clarity.</div>
+          <div class="model-name">Claude 4.7</div>
+          <div class="model-desc">Best for explanation and proof checking. The most patient tutor in the lineup.</div>
         </div>
         <div class="model-card">
-          <div class="model-name">Gemini 3.0 Pro</div>
-          <div class="model-desc">PhD-level reasoning + 2M context. Great for processing entire textbook sections.</div>
+          <div class="model-name">Gemini 3 Pro</div>
+          <div class="model-desc">Long-context champion. Whole textbooks in one window, PhD-level reasoning.</div>
         </div>
         <div class="model-card">
           <div class="model-name">GPT-5.1</div>
-          <div class="model-desc">Balanced all-rounder. Good general assistant for varied tasks.</div>
+          <div class="model-desc">Balanced all-rounder. Good fallback when other models hit rate limits.</div>
         </div>
       </div>
 
       <div class="callout">
-        <div class="callout-title">💡 Recommendation</div>
-        <p style="margin-bottom: 0;">Start with <strong>DeepSeek</strong> — it's free and powerful enough for this course. If you need more capabilities, consider Cursor with Claude for coding tasks.</p>
+        <div class="callout-title">Recommendation</div>
+        <p style="margin-bottom:0;">Start with <strong>DeepSeek</strong>. If you want a second opinion on a hard proof, paste the same prompt into Claude. Triangulating two models catches more mistakes than trusting one.</p>
       </div>
     </section>
 
-    <section id="tips">
-      <h2><span class="emoji">✨</span> Learning Tips</h2>
+    <section class="section" id="tips">
+      <header class="section-header">
+        <span class="section-number">§ 05</span>
+        <h2 class="section-title">Habits that <em>pay off</em></h2>
+      </header>
 
-      <h3>The Right Way to Use AI</h3>
+      <h3>Ask better questions</h3>
       <ul>
-        <li><strong>Ask specific questions</strong> — "Explain step 3 of this argument" beats "explain this"</li>
-        <li><strong>Request examples</strong> — Concrete examples solidify abstract concepts</li>
-        <li><strong>Challenge yourself first</strong> — Try problems before asking AI for solutions</li>
-        <li><strong>Verify understanding</strong> — Ask AI to quiz you on concepts</li>
+        <li><strong>Be specific.</strong> "Explain step 3 of this argument" beats "explain this."</li>
+        <li><strong>Demand examples.</strong> Concrete examples solidify abstract concepts faster than rephrasing.</li>
+        <li><strong>Try first.</strong> Attempt the problem before asking AI for the answer — you'll know what's actually confusing.</li>
+        <li><strong>Verify by quizzing.</strong> Ask the AI to test you, not just to explain. Recall is the real check.</li>
       </ul>
 
-      <h3>Study Group Strategy</h3>
-      <p>In your study groups, try using <strong>different AI models</strong>. This creates diversity in explanations and approaches, leading to richer discussions.</p>
+      <h3>Study together, with different models</h3>
+      <p>
+        In study groups, agree to use different AI tools on the same problem.
+        Compare answers. Disagreements between models almost always point at
+        the spot where the textbook is itself ambiguous.
+      </p>
 
-      <h3>The 5W2H Framework</h3>
-      <p>Structure your questions using this framework for better AI responses:</p>
+      <h3>The <em>5W2H</em> framework</h3>
+      <p>Force AI responses to give you more than a paraphrase by asking the seven questions:</p>
       <ul>
-        <li><strong>What</strong> — What is concept X?</li>
-        <li><strong>Why</strong> — Why does this property hold?</li>
-        <li><strong>When</strong> — When should I apply technique A vs. technique B?</li>
-        <li><strong>Where</strong> — Where in this argument do we use assumption Y?</li>
-        <li><strong>Who</strong> — Who developed this idea, and what motivated it?</li>
-        <li><strong>How</strong> — How do I convert representation A into representation B?</li>
-        <li><strong>How much</strong> — How much does parameter X affect the result?</li>
+        <li><strong>What</strong> — what is concept X?</li>
+        <li><strong>Why</strong> — why does the property hold?</li>
+        <li><strong>When</strong> — when do I apply technique A vs B?</li>
+        <li><strong>Where</strong> — where in the proof do we use assumption Y?</li>
+        <li><strong>Who</strong> — who developed this idea, and what motivated it?</li>
+        <li><strong>How</strong> — how do I convert representation A into representation B?</li>
+        <li><strong>How much</strong> — how sensitive is the result to parameter X?</li>
       </ul>
 
-      <div class="callout success">
-        <div class="callout-title">🎓 Remember</div>
-        <p style="margin-bottom: 0;">The goal isn't to outsource thinking to AI — it's to use AI as a patient tutor that helps you <em>understand</em>. Always aim to internalize the knowledge so you can solve problems on your own.</p>
+      <div class="callout">
+        <div class="callout-title">Remember</div>
+        <p style="margin-bottom:0;">The goal isn't to outsource thinking. AI is a patient tutor that helps you understand. The closed-book test next week measures what <em>you</em> can do.</p>
       </div>
     </section>
+
   </main>
 
   <footer>
-    <p class="footer-text">
-      {{COURSE_CODE}} {{COURSE_NAME}} · {{INSTITUTION}} ·
-      <a href="https://github.com" target="_blank">View on GitHub</a>
-    </p>
+    <div class="footer-inner">
+      <span class="footer-mark">{{COURSE_CODE}} · {{INSTITUTION}}</span>
+      <span class="footer-text">
+        Built with <a href="https://typst.app" target="_blank">Typst</a>,
+        scaffolded by <a href="https://github.com/GiggleLiu/TDAA-Go" target="_blank">TDAA-Go</a>.
+      </span>
+    </div>
   </footer>
 </body>
 </html>

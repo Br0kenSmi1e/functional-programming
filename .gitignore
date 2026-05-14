@@ -22,3 +22,10 @@ _site/
 # Local notes / scratch
 local/
 */learn-log.md
+
+# Reference materials: keep converted .md, ignore the binary source files
+reference/*.pdf
+reference/*.pptx
+reference/*.ppt
+reference/*.docx
+reference/*.doc

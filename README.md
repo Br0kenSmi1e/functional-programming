@@ -1,8 +1,14 @@
-# Course Template
+# TDAA-Go
 
-A forkable skeleton for AI-assisted course materials: weekly learning sheets,
-tests, validation sets, and a static website. Built on Typst + GitHub Pages,
-designed to be driven by Claude Code skills.
+A forkable, ready-to-launch skeleton for **Test-Driven, AI-Assisted (TDAA)**
+courses. Weekly learning sheets, closed-book tests, validation sets, and a
+static website — all written in Typst, built by `make`, deployed to GitHub
+Pages, and driven by Claude Code skills.
+
+> **TDAA in one sentence.** Students may use AI to *prepare*, but frequent
+> closed-book tests require them to think *unaided*. TDAA-Go is the
+> course-materials harness that makes the gate livable for students and the
+> production tractable for instructors.
 
 ## What you get
 
@@ -32,7 +38,16 @@ brew install --cask claude-code   # or: npm i -g @anthropic-ai/claude-code
 ```
 
 You'll also need a **textbook PDF** (your course's primary text) and a GitHub
-account.
+account. Optionally, gather any existing course materials you have (syllabus,
+past lecture slides, past exams) — `/bootstrap` can extract course metadata
+from them so you don't have to type everything by hand.
+
+Install the script dependencies (used by `/bootstrap` to parse reference
+materials):
+
+```bash
+uv sync
+```
 
 ### Step 1. Fork the template
 
@@ -40,13 +55,13 @@ Pick **one** of these:
 
 ```bash
 # Option A: fresh clone (recommended)
-gh repo create my-course --private --template GiggleLiu/course-template --clone
+gh repo create my-course --private --template GiggleLiu/TDAA-Go --clone
 cd my-course
 
 # Option B: copy locally if the repo isn't on GitHub yet
-cp -r path/to/course-template ~/my-course
+cp -r path/to/TDAA-Go ~/my-course
 cd ~/my-course
-git init -b main && git add -A && git commit -m "fork from course-template"
+git init -b main && git add -A && git commit -m "fork from TDAA-Go"
 ```
 
 ### Step 2. Bootstrap the course
@@ -61,11 +76,21 @@ claude
 > /bootstrap
 ```
 
-You will be asked for: course code, course name, textbook author/title/edition,
+First, `/bootstrap` asks whether you have existing course materials. If yes,
+drop them into `reference/` (syllabus, lecture slides, past exams as PDF /
+PPTX / DOCX / MD); the skill converts them to markdown and extracts course
+code, name, textbook, instructor, institution, and weekly topics, each tagged
+with its source file and a confidence level. You confirm or correct the
+extracted values, and only missing fields are asked manually. See
+`reference/README.md` for the list of valuable inputs.
+
+If you have no reference materials, `/bootstrap` falls back to asking every
+field directly: course code, course name, textbook author/title/edition,
 week count, instructor, institution, and (optionally) a Zulip stream name.
 Then you'll be asked for your **textbook PDF path(s)**.
 
 What `/bootstrap` produces:
+- `reference/*.md` (existing materials converted to markdown)
 - `config.toml` (course metadata; the checked-in `config.typ` shim loads it
   and re-exports each field, so every Typst template imports from `config.typ`
   but the values you edit live in `config.toml`)
@@ -249,5 +274,14 @@ typst compile weekN/N.learning-sheet.typ
 ## Requirements
 
 - [Typst](https://typst.app) (latest)
-- Python 3 (for `make serve`)
+- Python 3 (for `make serve` and bootstrap scripts)
+- [`uv`](https://docs.astral.sh/uv/) (for installing bootstrap script deps)
 - Optional: [`entr`](https://github.com/eradman/entr) for `make watch`
+
+## Citing TDAA
+
+If TDAA-Go shapes a course you teach or a paper you write, please cite the
+methodology paper this template was extracted from:
+
+> Liu, J.-G. *High-Frequency Test-Driven Learning with AI: Making Strict
+> Quality Gates Acceptable and Scalable.* DSAA 3071, HKUST(GZ), Spring 2026.
