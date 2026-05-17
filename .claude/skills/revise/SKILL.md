@@ -19,7 +19,7 @@ Week number N = `$ARGUMENTS`.
 
 ### Front Matter Check
 
-Before chunk review, validate the intro section (everything before Part 1). Report issues with `AskUserQuestion` using the same interaction protocol as chunks.
+Before chunk review, validate the opening section (everything before Part 1). Report issues with `AskUserQuestion` using the same interaction protocol as chunks.
 
 **1. Video link correctness:**
 - Read `coursedesign/schedule.typ` to find which MIT lecture videos are assigned to week N.

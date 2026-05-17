@@ -8,7 +8,7 @@ argument-hint: "[week-number]"
 
 Week number N = `$ARGUMENTS`.
 
-Generates all materials for a week (excluding intro.typ):
+Generates all materials for a week:
 1. Learning sheet — via adversarial writer/reviewer debate
 2. Tests (test, test.B, validation) — via writer + reviewer
 

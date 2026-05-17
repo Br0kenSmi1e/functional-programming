@@ -1,4 +1,4 @@
-.PHONY: all clean serve build pdfs viewers index setup-guide styles compile-tests dump-solutions compile-intro help watch serve-only
+.PHONY: all clean serve build pdfs viewers index setup-guide styles compile-tests dump-solutions help watch serve-only
 
 # Output directory
 SITE_DIR := _site
@@ -32,9 +32,6 @@ LEARNING_SHEETS := $(shell find . -path ./templates -prune -o -name "*learning-s
 # Find test.typ, test.B.typ, validation.typ files (exclude templates/)
 TEST_FILES := $(shell find . -path ./templates -prune -o \( -name "*.test.typ" -o -name "*.test.B.typ" \) -print | sort -V)
 VALIDATION_FILES := $(shell find . -path ./templates -prune -o -name "*.validation.typ" -print | sort -V)
-
-# Find all intro.typ files (exclude templates/)
-INTRO_FILES := $(shell find . -path ./templates -prune -o -name "*.intro.typ" -print | sort -V)
 
 all: build
 
@@ -96,18 +93,6 @@ dump-solutions: $(PDF_DIR)
 		typst compile --root . --input hide-solution=false "$$file" "$(PDF_DIR)/$${week}-$${basename}-solution.pdf"; \
 	done
 	@echo "✅ Solution PDFs compiled to $(PDF_DIR)/"
-
-# Compile all intro.typ files to PDFs
-compile-intro: $(PDF_DIR)
-	@echo "🎯 Compiling intro files to PDF..."
-	@for file in $(INTRO_FILES); do \
-		dir=$$(dirname "$$file"); \
-		basename=$$(basename "$$file" .typ); \
-		week=$$(basename "$$dir"); \
-		echo "  → $$file"; \
-		typst compile --root . "$$file" "$(PDF_DIR)/$${week}-$${basename}.pdf"; \
-	done
-	@echo "✅ Intro PDFs compiled to $(PDF_DIR)/"
 
 # Generate PDF viewer pages
 viewers: pdfs
@@ -202,7 +187,6 @@ help:
 	@echo "  make serve-only     Serve without rebuilding"
 	@echo "  make compile-tests  Compile all test.typ and validation.typ to PDF"
 	@echo "  make dump-solutions Compile tests and validations with solutions visible"
-	@echo "  make compile-intro  Compile all intro.typ to PDF"
 	@echo "  make clean          Remove build artifacts"
 	@echo "  make watch          Watch for changes and rebuild (requires entr)"
 	@echo ""

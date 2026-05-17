@@ -12,7 +12,6 @@ content.
 ```bash
 make build              # Build entire site (PDFs + HTML viewers)
 make compile-tests      # Compile all test and validation files
-make compile-intro      # Compile all intro files
 make serve              # Build then serve locally at http://localhost:8000
 make clean              # Clean build artifacts
 typst compile weekN/N.learning-sheet.typ   # Single file
@@ -23,11 +22,10 @@ typst compile weekN/N.learning-sheet.typ   # Single file
 ```
 config.toml               # Course metadata (course-code, course-name, textbook, instructor, institution)
 config.typ                # Shim that loads config.toml and re-exports fields for Typst templates
-pyproject.toml            # Python dep manifest for bootstrap scripts (uv sync)
+pyproject.toml            # Python dep manifest used by /bootstrap
 reference/                # Drop syllabus / past slides / past exams here before /bootstrap (binaries gitignored; converted *.md committed)
 scripts/                  # Bootstrap utilities: scan_references, convert_references, extract_metadata
 weekN/                    # Weekly materials (N = 1..num-weeks)
-├── N.intro.typ           # 10-min lecture introduction
 ├── N.learning-sheet.typ  # AI-assisted learning guide
 ├── N.advanced-learning-sheet.typ  # Research-track guide (deep dives, inquiry-based)
 ├── N.test.typ            # Closed-book assessment (130 pts)
@@ -38,7 +36,6 @@ templates/                # All Typst templates in one place
 ├── learning-sheet.typ    # Shared lib: styling, theorem envs, utilities
 ├── advanced-learning-sheet.typ  # Shared lib: deep indigo palette, inquiry envs
 ├── test.typ              # Shared lib: page setup, solution toggle, question counter
-├── intro.template.typ    # Intro slides template
 └── week-template/        # Copy this directory to start a new week
 coursedesign/
 ├── schedule.typ          # Weekly topic → textbook section mapping (created by /bootstrap)
@@ -84,7 +81,6 @@ When generating or editing, always check (in order):
 - **Define before use**: all symbols/concepts introduced before first use
 - **No page breaks** between parts (only first page has pagebreak)
 - **Test scope rule**: test.typ must not exceed validation.typ scope
-- **Same motivating task**: intro.typ hook = learning-sheet.typ task box
 
 ## Pedagogical Quality Criteria
 

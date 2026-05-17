@@ -4,11 +4,10 @@ This guide is for **instructors reviewing** and **AI agents designing** weekly c
 
 ## Overview
 
-Each week requires 5 files in `weekN/`:
+Each week requires 4 files in `weekN/`:
 
 | File | Purpose | Used In |
 |------|---------|---------|
-| `N.intro.typ` | Lecture introduction (10-15 min) | Session 1 |
 | `N.learning-sheet.typ` | AI-assisted learning guide | Session 2 |
 | `N.test.typ` | Closed-book assessment | Session 1 of Week N+1 |
 | `N.test.B.typ` | Make-up / alternative test | Make-up sessions |
@@ -25,7 +24,6 @@ Each week requires 5 files in `weekN/`:
 
 All templates live in `templates/`:
 - `templates/week-template/` — copy this directory to `weekN/` to start a new week (learning-sheet, test, test.B, validation)
-- `templates/intro.template.typ` — intro slides (copy separately)
 - `templates/learning-sheet.typ` — shared lib (imported by week templates, do not copy)
 - `templates/test.typ` — shared lib (imported by week templates, do not copy)
 
@@ -55,34 +53,6 @@ All templates live in `templates/`:
 ---
 
 ## Per-File-Type Content Guidelines
-
-### intro.typ (Lecture Introduction)
-
-**Purpose**: 10 min motivation for the week's topic
-
-**IMPORTANT**: This is NOT a lecture slide. Keep it **very simple**:
-- Total time: ~10 minutes only
-- Goal: Introduce the topic and motivate students
-- Explain **at most ONE key concept** that you cannot avoid
-- Students will learn the details in the learning-sheet with AI assistance
-
-**Content requirements**:
-- Opening hook: **Use the same motivating task from learning-sheet** to avoid duplicated effort
-- **Promise**: What students will learn this week (NOT key vocabulary list)
-- One concrete example connecting to daily life or impressive research
-- Task description for group work
-
-**What NOT to include**:
-- ~~Key vocabulary preview~~ — Replace with a promise of what we will learn
-- ~~Multiple theorems/definitions~~ — Save for learning-sheet
-- ~~Detailed proofs~~ — Just show the idea, not the full proof
-- ~~Session instructions (Discussion, Self-test)~~ — Only include "Session 2: Learn" instructions
-
-**Efficiency tip**: The task box in `learning-sheet.typ` and the hook in `intro.typ` should be the **same motivating problem**. Design it once, use it in both places.
-
-**Reference**: `week1/1.intro.typ` lines 35-80 (traffic light example)
-
----
 
 ### learning-sheet.typ (AI-Assisted Learning)
 
@@ -227,22 +197,6 @@ All templates live in `templates/`:
     [ ] All symbols used are defined in learning sheet
     [ ] No concepts beyond assigned learning sheet
 ```
-
-### Intro Checklist
-
-```
-[ ] Content
-    [ ] Real-world hook present (use same task from learning-sheet)
-    [ ] Promise of what we will learn (NOT key vocabulary)
-    [ ] At most ONE key concept explained
-    [ ] Only "Session 2: Learn" instructions (NO Discussion/Self-test slides)
-
-[ ] Timing
-    [ ] Time counters add up to ~10 min
-    [ ] Content fits within introduction session
-```
-
----
 
 ## References
 

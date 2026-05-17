@@ -13,13 +13,13 @@ Pages, and driven by Claude Code skills.
 ## What you get
 
 - **Weekly materials pipeline** — learning sheet, test, test variant B, and
-  validation set per week; intro slides; optional research-track advanced
-  learning sheet
+  validation set per week; optional research-track advanced learning sheet
 - **Claude Code skills** — `/bootstrap`, `/generate-week`, `/write-learning-sheet`,
   `/review-learning-sheet`, `/write-tests`, `/review-tests`, `/revise`,
   `/grade-homework`, `/homework-report`, `/learn`, `/pivot`
-- **Build infrastructure** — `make build` compiles every `.typ` to PDF and a
-  GitHub Pages viewer; `make serve` previews locally
+- **Build infrastructure** — `make build` compiles learning sheets to PDF and
+  creates the GitHub Pages viewer; `make compile-tests` builds assessments;
+  `make serve` previews locally
 - **Optional Zulip release workflow** — drip-release materials by date/time
 - **Optional GitHub Pages deployment** on push to `main`
 
@@ -31,23 +31,16 @@ Install once:
 
 ```bash
 # macOS (Homebrew)
-brew install typst gh
+brew install typst gh uv
 brew install --cask claude-code   # or: npm i -g @anthropic-ai/claude-code
 
-# Linux: see typst.app, github.com/cli/cli, claude.com/claude-code
+# Linux: see typst.app, github.com/cli/cli, docs.astral.sh/uv, claude.com/claude-code
 ```
 
 You'll also need a **textbook PDF** (your course's primary text) and a GitHub
 account. Optionally, gather any existing course materials you have (syllabus,
 past lecture slides, past exams) — `/bootstrap` can extract course metadata
 from them so you don't have to type everything by hand.
-
-Install the script dependencies (used by `/bootstrap` to parse reference
-materials):
-
-```bash
-uv sync
-```
 
 ### Step 1. Fork the template
 
@@ -124,7 +117,7 @@ If you want finer control, use the smaller skills:
 ### Step 4. Build and preview locally
 
 ```bash
-make build && make serve   # opens http://localhost:8000
+make serve   # builds, then opens http://localhost:8000
 ```
 
 The site lists every weekly learning sheet with a built-in PDF viewer.
@@ -174,7 +167,8 @@ For each subsequent week:
 ```
 
 ```bash
-make build && make serve       # preview
+make build                     # build before pushing
+# optional local preview: make serve
 git add week2/ && git commit -m "week 2" && git push
 ```
 
@@ -218,7 +212,6 @@ templates/                           # Typst libraries (do not edit per-week)
 ├── learning-sheet.typ               # Shared lib: theorem envs, prompt blocks
 ├── advanced-learning-sheet.typ      # Research-track lib (deep dives, gedanken)
 ├── test.typ                         # Shared lib: question counter, solution toggle
-├── intro.template.typ               # Intro slides skeleton (copy per-week)
 └── week-template/                   # Copy to weekN/ to start a week
 coursedesign/
 ├── weekly-materials-guide.md        # Pedagogical principles & checklists
@@ -258,7 +251,6 @@ weekN/                               # Per-week materials (created by /generate-
 ```bash
 make build              # Build entire site (PDFs + HTML viewers)
 make compile-tests      # Compile all test and validation files
-make compile-intro      # Compile all intro files
 make dump-solutions     # Compile tests/validations with solutions visible
 make serve              # Build then serve locally at http://localhost:8000
 make serve-only         # Serve without rebuilding

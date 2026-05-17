@@ -1,6 +1,6 @@
 ---
 name: bootstrap
-description: Use when setting up a new course from a forked template repo — ingests existing reference materials (syllabus/slides/notes), writes config.toml, fills HTML/workflow placeholders, ingests textbook PDFs, and creates the weekly schedule
+description: Use when setting up a new course from a forked template repo — ingests existing reference materials (syllabus/slides/notes), writes config.toml, fills HTML/workflow placeholders, ingests textbook PDFs, creates the weekly schedule, and enables GitHub Pages deployment when possible
 ---
 
 # Bootstrap Course
@@ -12,6 +12,7 @@ Run once after forking the template repo. Produces:
 3. Substituted placeholders in `.github/templates/*.html` and `.github/workflows/release-materials.yml`
 4. `textbook/*.md` (extracted chapters)
 5. `coursedesign/schedule.typ` (weekly section assignments)
+6. GitHub Pages configured to use the included `deploy-pages.yml` workflow, when the repository is already on GitHub and the authenticated user has permission
 
 ## Step 1: Collect reference materials
 
@@ -184,6 +185,45 @@ If the user enabled Zulip release, copy `coursedesign/release-schedule.example.j
 
 Times are Beijing time. The hourly cron job picks up matching entries.
 
+## Step 8: Configure GitHub Pages
+
+The template already includes:
+- `.github/templates/` — static website templates for the course index, PDF viewer, setup guide, and styles
+- `.github/workflows/deploy-pages.yml` — a workflow that runs `make build`, uploads `_site/`, and deploys it to GitHub Pages
+
+GitHub Pages itself still has to be enabled once for the course repository. If the repository has a GitHub `origin` remote and `gh` is authenticated, ask the user whether to enable Pages automatically. If they agree, first identify the repository:
+
+```bash
+gh repo view --json nameWithOwner -q .nameWithOwner
+```
+
+Then check whether Pages is already enabled:
+
+```bash
+gh api "repos/OWNER/REPO/pages" --jq '{html_url, build_type}'
+```
+
+In all `gh api` commands below, replace `OWNER/REPO` with the repository returned by `gh repo view`. If this returns an existing site whose `build_type` is `workflow`, report the Pages URL and continue. If Pages is not enabled, create it with the GitHub Actions workflow build type:
+
+```bash
+gh api --method POST "repos/OWNER/REPO/pages" -f build_type=workflow
+```
+
+If Pages exists but uses another build type, update it:
+
+```bash
+gh api --method PUT "repos/OWNER/REPO/pages" -f build_type=workflow
+```
+
+If any command fails because the repository is not on GitHub, `gh` is not authenticated, or the user lacks repository administrator / "manage GitHub Pages settings" permission, do not fail bootstrap. Report the manual fallback:
+
+1. Push the repository to GitHub.
+2. Open the repository page.
+3. Go to `Settings -> Pages`.
+4. Set `Source` to `GitHub Actions`.
+
+After Pages is enabled, the included `deploy-pages.yml` workflow publishes on pushes to `main` that touch weekly Typst files, `.github/templates/**`, `config.toml`, the Makefile, or the workflow itself.
+
 ## After bootstrap
 
 The repo is ready. The user can now run:
@@ -194,5 +234,7 @@ The repo is ready. The user can now run:
 Verify the build works:
 
 ```bash
-make build && make serve  # check http://localhost:8000
+make build
 ```
+
+For local preview, run `make serve`.
