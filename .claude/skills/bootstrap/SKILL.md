@@ -9,7 +9,7 @@ Run once after forking the template repo. Produces:
 
 1. `reference/*.md` (existing course materials converted to markdown, used to pre-fill metadata)
 2. `config.toml` (course metadata; the checked-in `config.typ` shim loads it and re-exports the fields for Typst templates)
-3. Substituted placeholders in `.github/templates/*.html` and `.github/workflows/release-materials.yml`
+3. Substituted placeholders in `.github/templates/*.html` (the release-materials workflow reads `config.toml` at runtime; no workflow substitution needed)
 4. `textbook/*.md` (extracted chapters)
 5. `coursedesign/schedule.typ` (weekly section assignments)
 6. GitHub Pages configured to use the included `deploy-pages.yml` workflow, when the repository is already on GitHub and the authenticated user has permission
@@ -94,8 +94,6 @@ Do **not** edit `config.typ` — it's a checked-in shim that just calls
 (`#import "../config.typ": course-code, ...`) keep working unchanged.
 
 ## Step 4: Substitute placeholders
-
-Replace these tokens in the listed files:
 
 Replace these tokens in `.github/templates/`:
 

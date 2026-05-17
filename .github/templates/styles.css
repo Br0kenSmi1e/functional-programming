@@ -59,7 +59,7 @@ body {
    HEADER — minimal monospace bar with hairline rule
    ============================================================ */
 
-header {
+body > header {
   position: sticky;
   top: 0;
   z-index: 50;
@@ -903,6 +903,42 @@ body.viewer .header-content {
   text-decoration: none;
 }
 
+/* ============================================================
+   CTA button — used for primary actions on About / docs pages
+   ============================================================ */
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.3rem;
+  background: var(--accent);
+  color: var(--paper);
+  text-decoration: none;
+  border: 1px solid var(--accent);
+  border-radius: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+  margin-top: 0.6rem;
+}
+
+.cta-btn:hover {
+  background: transparent;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.cta-btn .arrow {
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.cta-btn:hover .arrow { transform: translateX(3px); }
+
 .pdf-container {
   flex: 1;
   display: flex;
@@ -914,6 +950,190 @@ body.viewer .header-content {
   height: 100%;
   border: none;
   background: var(--paper-edge);
+}
+
+/* ============================================================
+   LANDING — index page: compact hero, materials grid eager.
+   Activated by `<body class="landing">`.
+   ============================================================ */
+
+body.landing .container {
+  padding: 1.75rem 2rem 4rem;
+}
+
+body.landing .hero.hero-compact {
+  padding: 0.5rem 0 1.75rem;
+}
+
+body.landing .hero.hero-compact::after {
+  background-size: 60px 10px;
+  height: 8px;
+  opacity: 0.2;
+}
+
+body.landing .hero.hero-compact .hero-eyebrow {
+  margin-bottom: 0.85rem;
+}
+
+body.landing .hero.hero-compact h1 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height: 1.0;
+  margin-bottom: 0.95rem;
+  max-width: 22ch;
+}
+
+body.landing .hero.hero-compact .hero-subtitle {
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+  line-height: 1.5;
+  margin-bottom: 0.9rem;
+  max-width: 60ch;
+}
+
+body.landing .hero-aux {
+  font-family: var(--serif-body);
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+body.landing .hero-aux a { color: var(--ink-soft); }
+body.landing .hero-aux a:hover { color: var(--accent); }
+
+body.landing .section.section-flush {
+  padding: 1.75rem 0 1rem;
+  border-bottom: none;
+}
+
+/* "This week" flag on the latest card */
+.week-flag {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.45rem;
+  background: var(--accent);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.week-card-current { background: rgba(165, 93, 26, 0.04); }
+.week-card-current::before { transform: scaleY(1); }
+
+/* ============================================================
+   COMPACT — non-index docs pages (student-guide, about,
+   instructor-guide, setup-guide). Editorial design stays the
+   same; vertical rhythm tightens and line length narrows for
+   content-focused reading. Activated by `<body class="compact">`.
+   ============================================================ */
+
+body.compact .container {
+  max-width: 880px;
+  padding: 2rem 2rem 3.5rem;
+}
+
+body.compact .hero {
+  padding: 1rem 0 1.75rem;
+}
+
+body.compact .hero::after { display: none; }
+
+body.compact .hero-eyebrow {
+  margin-bottom: 0.75rem;
+}
+
+body.compact .hero h1 {
+  font-size: clamp(1.95rem, 4vw, 3.1rem);
+  line-height: 1.02;
+  margin-bottom: 0.9rem;
+  max-width: 24ch;
+}
+
+body.compact .hero-subtitle {
+  font-size: clamp(0.98rem, 1.3vw, 1.12rem);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  max-width: 62ch;
+}
+
+body.compact .toc {
+  margin: 0.5rem 0 1.75rem;
+  padding: 0.9rem 1.15rem;
+}
+
+body.compact .toc-title { margin-bottom: 0.6rem; }
+body.compact .toc-list { gap: 0.2rem; }
+body.compact .toc-list a { padding: 0.18rem 0; font-size: 0.95rem; }
+
+body.compact .section {
+  padding: 2rem 0 1.5rem;
+}
+
+body.compact .section-header {
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  gap: 1rem;
+}
+
+body.compact .section-title {
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+}
+
+body.compact .section-lede {
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+body.compact h3 {
+  margin-top: 1.4rem;
+  margin-bottom: 0.55rem;
+}
+
+body.compact .step {
+  padding: 0 0 1.35rem 3.4rem;
+  margin-left: 1.1rem;
+}
+
+body.compact .step::before {
+  width: 2.4rem;
+  height: 2.4rem;
+  font-size: 0.7rem;
+  left: -1.1rem;
+}
+
+body.compact .step-title {
+  font-size: 1.18rem;
+  margin-bottom: 0.4rem;
+}
+
+body.compact .step-content { font-size: 0.95rem; line-height: 1.55; }
+body.compact .step-content p { margin-bottom: 0.65rem; }
+
+body.compact .callout {
+  margin: 1rem 0;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.92rem;
+}
+
+body.compact pre {
+  margin: 0.55rem 0 0.85rem;
+}
+
+body.compact ul, body.compact ol { margin: 0.75rem 0; }
+body.compact ul li, body.compact ol li { margin-bottom: 0.3rem; }
+
+body.compact .faq summary { font-size: 1.02rem; padding: 0.85rem 0; }
+body.compact .faq-answer { padding: 0 0 1rem 1.4rem; }
+
+body.compact .model-grid { margin: 1rem 0; }
+body.compact .model-card { padding: 1rem 1.15rem; }
+
+body.compact footer {
+  margin-top: 1.5rem;
+  padding: 1.6rem 2rem 1.9rem;
 }
 
 /* ============================================================

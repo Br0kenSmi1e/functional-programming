@@ -1,4 +1,4 @@
-.PHONY: all clean serve build pdfs viewers index setup-guide styles compile-tests dump-solutions help watch serve-only
+.PHONY: all clean serve build pdfs viewers index setup-guide about instructor-guide student-guide styles compile-tests dump-solutions help watch serve-only
 
 # Output directory
 SITE_DIR := _site
@@ -35,7 +35,7 @@ VALIDATION_FILES := $(shell find . -path ./templates -prune -o -name "*.validati
 
 all: build
 
-build: pdfs viewers setup-guide index
+build: pdfs viewers setup-guide about instructor-guide student-guide index
 	@echo "✅ Build complete! Run 'make serve' to preview locally."
 
 # Create directories
@@ -126,12 +126,27 @@ setup-guide: $(SITE_DIR) styles
 	@echo "📚 Rendering setup guide..."
 	@$(SUB_HTML) .github/templates/setup-guide.html > $(SITE_DIR)/setup-guide.html
 
+# Render About TDAA page
+about: $(SITE_DIR) styles
+	@echo "📖 Rendering About TDAA page..."
+	@$(SUB_HTML) .github/templates/about.html > $(SITE_DIR)/about.html
+
+# Render instructor's guide page (linked from About, not in main nav)
+instructor-guide: $(SITE_DIR) styles
+	@echo "🧑‍🏫 Rendering instructor's guide..."
+	@$(SUB_HTML) .github/templates/instructor-guide.html > $(SITE_DIR)/instructor-guide.html
+
+# Render student guide page
+student-guide: $(SITE_DIR) styles
+	@echo "🎓 Rendering student guide..."
+	@$(SUB_HTML) .github/templates/student-guide.html > $(SITE_DIR)/student-guide.html
+
 # Generate index page
-index: viewers setup-guide styles
+index: viewers setup-guide about instructor-guide student-guide styles
 	@echo "🏠 Generating index page..."
 	@pages="["; \
 	first=true; \
-	for file in $$(ls $(SITE_DIR)/*.html 2>/dev/null | grep -v index.html | grep -v setup-guide.html | sort -V); do \
+	for file in $$(ls $(SITE_DIR)/*.html 2>/dev/null | grep -v index.html | grep -v setup-guide.html | grep -v about.html | grep -v instructor-guide.html | grep -v student-guide.html | sort -V); do \
 		filename=$$(basename "$$file"); \
 		weekNum=$$(echo "$$filename" | grep -oE 'week[0-9]+' | sed 's/week//'); \
 		week="Week $${weekNum}"; \

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student guide · {{COURSE_CODE}} {{COURSE_NAME}}</title>
+  <meta name="description" content="How to study a TDAA course week to week — four steps and the questions students raise in the first two weeks.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="compact">
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="header-title" style="text-decoration:none;border:none;color:inherit;">
+        {{COURSE_CODE}} <span class="header-title-mark">/ {{COURSE_NAME}}</span>
+      </a>
+      <nav class="header-nav">
+        <a href="index.html" class="nav-link">Materials</a>
+        <a href="student-guide.html" class="nav-link active">Student guide</a>
+        <a href="about.html" class="nav-link">About TDAA</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section class="hero">
+      <div class="hero-eyebrow">
+        <span class="dot"></span>
+        For students · How to study this course
+      </div>
+      <h1>Each week, <em>four steps</em>.</h1>
+      <p class="hero-subtitle">
+        The shortest path from "I opened this page" to "I'm ready for the
+        weekly test." Roughly forty minutes per week, plus practice. The
+        questions students raise in the first two weeks are answered below.
+      </p>
+    </section>
+
+    <nav class="toc">
+      <div class="toc-title">In this guide</div>
+      <ol class="toc-list">
+        <li><a href="#hands-on"><span class="toc-number">01</span> Hands-on, in four steps</a></li>
+        <li><a href="#faq"><span class="toc-number">02</span> Frequently asked</a></li>
+      </ol>
+    </nav>
+
+    <section class="section" id="hands-on">
+      <header class="section-header">
+        <span class="section-number">§ 01</span>
+        <h2 class="section-title">Hands-on, <em>in four steps</em></h2>
+      </header>
+      <p class="section-lede">
+        Open this week's <a href="index.html#materials">learning sheet</a>,
+        then follow the four steps below.
+      </p>
+
+      <ol class="steps">
+        <li class="step">
+          <div class="step-title">Read the <em>learning sheet</em></div>
+          <div class="step-content">
+            <p>
+              Pick this week's row on the <a href="index.html#materials">Materials</a>
+              page and read straight through. The sheet is built as a single
+              arc — definitions, intuition, worked example, proof sketch —
+              so resist the temptation to skim.
+            </p>
+            <p>
+              Symbols and terms are introduced before they are used; if you hit
+              one that feels unfamiliar, it's defined a paragraph or two earlier,
+              not later.
+            </p>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-title">Talk to an <em>AI tutor</em></div>
+          <div class="step-content">
+            <p>
+              Each sheet ships with copy-paste prompts marked
+              <code>#prompt</code>. Open
+              <a href="https://chat.deepseek.com" target="_blank">DeepSeek</a>,
+              <a href="https://claude.ai" target="_blank">Claude</a>, or any
+              chat model, paste the textbook chapter, then paste the prompt.
+            </p>
+            <pre><code>I'm studying {{COURSE_NAME}}, week N.
+Here is the textbook chapter and the learning sheet.
+Walk me through example 2 step by step,
+then quiz me on the definition of X.</code></pre>
+            <p>
+              Treat AI as a patient TA, not a homework solver. The goal is to
+              come out able to explain the idea to a classmate.
+            </p>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-title">Run the <em>validation set</em></div>
+          <div class="step-content">
+            <p>
+              Every learning sheet has a paired validation document of the same
+              shape and difficulty as the closed-book test. Solve it on paper,
+              with no AI and no notes, in roughly the time the real test will
+              give you.
+            </p>
+            <p>
+              If you stumble on a question, that's signal — go back to the
+              relevant section of the sheet, do another AI-assisted pass, and
+              try again the next day.
+            </p>
+          </div>
+        </li>
+
+        <li class="step">
+          <div class="step-title">Show up to the <em>weekly test</em></div>
+          <div class="step-content">
+            <p>
+              Closed book, closed notes, closed AI. Tests are scored out of
+              130 points but capped at 100, so two missed questions still leave
+              you a perfect grade. The cap is intentional — it keeps the gate
+              strict without making it cruel.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" id="faq">
+      <header class="section-header">
+        <span class="section-number">§ 02</span>
+        <h2 class="section-title">Frequently <em>asked</em></h2>
+      </header>
+      <p class="section-lede">
+        Questions students raise in the first two weeks of any TDAA course.
+        If yours is missing, ask in class — we'll add it. For the philosophy
+        behind the design, see <a href="about.html">About TDAA</a>.
+      </p>
+
+      <div class="faq">
+        <details>
+          <summary>Am I allowed to use AI for homework?</summary>
+          <div class="faq-answer">
+            <p>
+              Yes. The learning sheets explicitly include AI prompts. Cite the
+              tools and prompts you used, the same way you'd cite a textbook.
+              The honesty norm is "name your sources," not "work alone."
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Why a weekly test instead of a midterm and a final?</summary>
+          <div class="faq-answer">
+            <p>
+              Because if the gate appears only once, you can postpone real
+              learning for weeks. If it appears every week, AI-assisted study
+              becomes preparation for an unaided performance, and the cost of
+              falling behind never gets large enough to feel hopeless.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Why is the test scored out of 130 but capped at 100?</summary>
+          <div class="faq-answer">
+            <p>
+              So that strictness doesn't tip into cruelty. You can miss two
+              full questions and still earn a perfect score. The cap also
+              shifts the conversation in office hours from "how do I squeeze
+              out the last point" to "what did I not understand."
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>How does the validation set differ from the test?</summary>
+          <div class="faq-answer">
+            <p>
+              Same structure, same difficulty, different specific questions.
+              Validation is open — you can use AI, talk to friends, look at
+              the sheet. Test is closed. The point of the validation set is
+              to remove uncertainty about the scope without giving away the
+              questions.
+            </p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Which AI model should I use?</summary>
+          <div class="faq-answer">
+            <p>
+              <strong>DeepSeek</strong> is free, accepts PDF uploads, and is
+              strong on step-by-step reasoning — a good default. If you have
+              access, <strong>Claude</strong> is excellent at explanation and
+              proof checking, and <strong>Gemini</strong> handles the longest
+              chapters.
+            </p>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-mark">{{COURSE_CODE}} · {{INSTITUTION}}</span>
+      <span class="footer-text">
+        Built with <a href="https://typst.app" target="_blank">Typst</a>,
+        scaffolded by <a href="https://github.com/GiggleLiu/TDAA-Go" target="_blank">TDAA-Go</a>.
+      </span>
+    </div>
+  </footer>
+</body>
+</html>

@@ -2,7 +2,10 @@
 #
 # All Typst templates read these values via the `config.typ` shim
 # (which calls `toml("config.toml")` and re-exports each field).
-# HTML templates and workflows substitute them via {{COURSE_CODE}} etc.
+# HTML templates substitute them via {{COURSE_CODE}} etc., which the
+# Makefile fills in at build time from this file. Workflows (e.g.
+# release-materials.yml) read this file directly at runtime; no
+# substitution happens in workflow YAML.
 
 course-code      = "XXX 0000"                     # e.g. "DSAA 3071", "PHYS 2071"
 course-name      = "Course Name"                  # e.g. "Theories in Computing"
