@@ -28,3 +28,6 @@ reference/*.pptx
 reference/*.ppt
 reference/*.docx
 reference/*.doc
+
+# Local textbook source PDF ingested into textbook/*.md during bootstrap
+/textbook.pdf

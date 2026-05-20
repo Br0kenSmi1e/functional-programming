@@ -9,17 +9,17 @@
 # clearly signals which fields the instructor must fill in after /bootstrap.
 # Angle-bracketed values render literally on the site as placeholders.
 
-course-code      = "<Course Code>"
-course-name      = "<Course Name>"
-textbook-author  = "<Textbook Author>"
-textbook-title   = "<Textbook Title>"
-textbook-edition = "<Textbook Edition>"
-instructor       = "<Instructor>"
-institution      = "<Institution>"
+course-code      = "TDAA-0000"
+course-name      = "Functional Programming"
+textbook-author  = "Richard Bird"
+textbook-title   = "Pearls of Functional Algorithm Design"
+textbook-edition = "1st ed. (2010)"
+instructor       = "Longli Zheng"
+institution      = "HKUST(GZ)"
 
 # Used by the Zulip release workflow. Empty string disables the workflow.
 zulip-stream     = ""
 
 # Convenience: short reference shown in test/validation footers and on the
 # site hero. Leave empty to default to textbook-author.
-textbook-short   = ""
+textbook-short   = "Bird"
